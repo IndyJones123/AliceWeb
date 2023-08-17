@@ -22,7 +22,8 @@ class _auth {
 
             docSnapshot.forEach((doc) => {
                 const userData = doc.data();
-                account.push(userData);
+                const userId = doc.id;
+                account.push({ id: userId, data: userData });
             });
 
             if (account.length == 0) {
@@ -32,7 +33,7 @@ class _auth {
                 };
             }
 
-            if (!bcrypt.compareSync(body.password, account[0].password)) {
+            if (!bcrypt.compareSync(body.password, account[0].data.password)) {
                 return {
                     status: false,
                     code: 401,
@@ -41,8 +42,9 @@ class _auth {
             }
 
             const payload = {
-                email: account[0].email,
-                username: account[0].username,
+                id: account[0].id,
+                email: account[0].data.email,
+                username: account[0].data.username,
             };
 
             const token = jwt.sign(payload, "jwt-secret-code", {
