@@ -1,6 +1,10 @@
 const authController = require("./src/controllers/auth.controller");
+const gameController = require("./src/controllers/game.controller");
 
-const _routes = [["auth", authController]];
+const _routes = [
+    ["auth", authController],
+    ["game", gameController],
+];
 
 const routes = (app) => {
     _routes.forEach((route) => {

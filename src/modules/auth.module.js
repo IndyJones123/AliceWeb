@@ -45,6 +45,7 @@ class _auth {
                 id: account[0].id,
                 email: account[0].data.email,
                 username: account[0].data.username,
+                role: account[0].data.role,
             };
 
             const token = jwt.sign(payload, "jwt-secret-code", {
@@ -82,6 +83,7 @@ class _auth {
                 email: body.email,
                 password: password_hash,
                 username: body.username,
+                role: body.role,
             };
 
             users.password = password_hash;
