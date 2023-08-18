@@ -12,3 +12,6 @@ npm install
 ```
 npm run dev
 ```
+
+## Documentation POSTMAN
+https://documenter.getpostman.com/view/21361511/2s9Y5SVk9k
