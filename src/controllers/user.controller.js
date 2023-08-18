@@ -19,6 +19,12 @@ userController.put("/update/:id", authorization, async (req, res) => {
     return response.sendResponse(res, result);
 });
 
+userController.get("/detail/:id", async (req, res) => {
+    const result = await m$user.getSpesificDataUser(req.params.id);
+
+    return response.sendResponse(res, result);
+});
+
 userController.delete("/delete/:id", authorization, async (req, res) => {
     const result = await m$user.deleteDataUser(req.params.id);
 

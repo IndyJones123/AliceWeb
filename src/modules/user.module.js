@@ -88,6 +88,35 @@ class _user {
             };
         }
     };
+
+    getSpesificDataUser = async (id) => {
+        try {
+            const getData = await db
+                .collection(usersLogCollection)
+                .where("Username", "==", id)
+                .get();
+
+            const data = [];
+
+            getData.forEach((doc) => {
+                const dataUser = doc.data();
+                data.push({ id, dataUser });
+            });
+
+            return {
+                status: true,
+                code: 200,
+                data,
+            };
+        } catch (error) {
+            console.error("request deleteData module Error: ", error);
+            return {
+                status: false,
+                message:
+                    "Error, check the console log of the backend for what happened",
+            };
+        }
+    };
 }
 
 module.exports = new _user();
