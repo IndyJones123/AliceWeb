@@ -31,4 +31,10 @@ userController.delete("/delete/:id", authorization, async (req, res) => {
     return response.sendResponse(res, result);
 });
 
+userController.put("/delete/inventory/:id", authorization, async (req, res) => {
+    const result = await m$user.deleteInventory(req.params.id, req.body);
+
+    return response.sendResponse(res, result);
+});
+
 module.exports = userController;

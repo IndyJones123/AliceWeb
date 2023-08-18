@@ -48,7 +48,11 @@ class _user {
             const usersLog = updateData.data();
 
             if (usersLog.hasOwnProperty(body.quest)) {
-                usersLog[body.quest] = body.value;
+                if (body.quest === "Inventory") {
+                    usersLog[body.quest][body.index] = body.value;
+                } else {
+                    usersLog[body.quest] = body.value;
+                }
             }
 
             await db.collection(usersLogCollection).doc(id).update(usersLog);
@@ -78,6 +82,34 @@ class _user {
                 status: true,
                 code: 200,
                 data: "data deleted successfully",
+            };
+        } catch (error) {
+            console.error("request deleteData module Error: ", error);
+            return {
+                status: false,
+                message:
+                    "Error, check the console log of the backend for what happened",
+            };
+        }
+    };
+
+    deleteInventory = async (id, body) => {
+        try {
+            const deleteData = await db
+                .collection(usersLogCollection)
+                .doc(id)
+                .get();
+
+            const usersLog = deleteData.data();
+
+            usersLog.Inventory.splice(body.index, 1);
+
+            await db.collection(usersLogCollection).doc(id).update(usersLog);
+
+            return {
+                status: true,
+                code: 200,
+                message: "data deleted successfully",
             };
         } catch (error) {
             console.error("request deleteData module Error: ", error);
