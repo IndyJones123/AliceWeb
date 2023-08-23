@@ -35,22 +35,12 @@ class _quest {
     };
 
     updateQuest = async (id, body) => {
+        console.log(body);
         const updateData = await db.collection(questCollection).doc(id).get();
 
         const questData = updateData.data();
 
-        if (body.field === "Description") {
-            questData.Description[body.index] = body.value;
-        } else if (body.field === "Goals") {
-            questData.Goals[body.index] = body.value;
-        } else {
-            return {
-                status: false,
-                message: "field not found",
-            };
-        }
-
-        await db.collection(questCollection).doc(id).update(questData);
+        await db.collection(questCollection).doc(id).update(body);
 
         return {
             status: true,
@@ -60,6 +50,7 @@ class _quest {
     };
 
     deleteQuest = async (id, body) => {
+        console.log(body);
         try {
             const deleteData = await db
                 .collection(questCollection)
@@ -88,6 +79,27 @@ class _quest {
             };
         } catch (error) {
             console.error("request deleteData module Error: ", error);
+            return {
+                status: false,
+                message:
+                    "Error, check the console log of the backend for what happened",
+            };
+        }
+    };
+
+    getDetail = async (id) => {
+        try {
+            const getData = await db.collection(questCollection).doc(id).get();
+
+            const questData = getData.data();
+
+            return {
+                status: true,
+                code: 200,
+                questData,
+            };
+        } catch (error) {
+            console.error("request getData module Error: ", error);
             return {
                 status: false,
                 message:

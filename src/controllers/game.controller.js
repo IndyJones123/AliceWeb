@@ -24,4 +24,10 @@ gameController.get("/", async (req, res) => {
     return response.sendResponse(res, result);
 });
 
+gameController.get("/:id", async (req, res) => {
+    const result = await m$game.getGameDetail(req.params.id);
+
+    return response.sendResponse(res, result);
+});
+
 module.exports = gameController;

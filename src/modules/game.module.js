@@ -72,6 +72,25 @@ class _game {
             data: gameData,
         };
     };
+
+    getGameDetail = async (id) => {
+        const getData = await db.collection(gameCollection).doc(id).get();
+
+        const gameData = getData.data();
+
+        if (!gameData) {
+            return {
+                status: false,
+                message: "Game tidak ada",
+            };
+        }
+
+        return {
+            status: true,
+            code: 200,
+            data: gameData,
+        };
+    };
 }
 
 module.exports = new _game();

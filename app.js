@@ -17,6 +17,7 @@ app.get("/", async (req, res) => {
 
 routes(app);
 
+app.use("/assets", express.static(`./src/public`));
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });

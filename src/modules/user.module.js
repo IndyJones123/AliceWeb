@@ -47,15 +47,7 @@ class _user {
 
             const usersLog = updateData.data();
 
-            if (usersLog.hasOwnProperty(body.quest)) {
-                if (body.quest === "Inventory") {
-                    usersLog[body.quest][body.index] = body.value;
-                } else {
-                    usersLog[body.quest] = body.value;
-                }
-            }
-
-            await db.collection(usersLogCollection).doc(id).update(usersLog);
+            await db.collection(usersLogCollection).doc(id).update(body);
 
             return {
                 status: true,
